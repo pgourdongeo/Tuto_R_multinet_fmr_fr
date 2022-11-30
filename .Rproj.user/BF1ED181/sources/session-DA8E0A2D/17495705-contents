@@ -1,6 +1,7 @@
 ---
 title: "Analyse de réseaux multiplexes avec R - le package multinet"
 output: github_document
+output-file: "README.md"
 editor_options: 
 chunk_output_type: console
 ---
@@ -16,18 +17,18 @@ knitr::opts_chunk$set(
 )
 ```
 
-- [**1. Importer et créer l'objet**](#basics)
-  - [1.1. Importer un objet multigraphe](#import)
-  - [1.2. Importer des données au format csv et igraph](#format)
-  - [1.3. Appréhender les objets créés](#manipulation)
-  - [1.4. Aligner le multigraphe (tous les sommets dans toutes les couches)](#align)
-- [**2. Quelques mesures et analyses**](#mesures)
-  - [2.1. Créer et étudier les couches individuellemment](#couches)
-  - [2.2. Centralités, voisinage, distances](#centralite-voisinage)
-  - [2.3. Comparaison des couches](#comparaison)
-  - [2.4. Détection de communautés](#communautes)
-- [**3. Visualisation**](#visualisation)
-- [**4. Références**](#references)
+- [**1. Importer et créer l'objet**](#1-importer-et-créer-lobjet)
+  - [1.1. Importer un objet multigraphe](#11-importer-un-objet-multigraphe)
+  - [1.2. Importer des données au format csv et igraph](#12-importer-des-données-au-format-csv-et-igraph)
+  - [1.3. Appréhender les objets créés](#13-appréhender-les-objets-créés)
+  - [1.4. Aligner le multigraphe (tous les sommets dans toutes les couches)](#14-aligner-le-multigraphe-tous-les-sommets-dans-toutes-les-couches)
+- [**2. Quelques mesures et analyses**](#2-quelques-mesures-et-analyses)
+  - [2.1. Créer et étudier les couches individuellemment](#21-créer-et-étudier-les-couches-individuellemment)
+  - [2.2. Centralités, voisinage, distances](#22-centralités-voisinage-distances)
+  - [2.3. Comparaison des couches](#23-comparaison-des-couches)
+  - [2.4. Détection de communautés](#24-détection-de-communautés)
+- [**3. Visualisation**](#3-visualisation)
+- [**4. Références**](#4-références)
 
 
 *Paul Gourdon et Laurent Beauguitte (UMR Géographie-cités)*
