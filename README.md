@@ -1,36 +1,24 @@
 Analyse de réseaux multiplexes avec R - le package multinet
 ================
 
-- <a href="#importer-et-créer-lobjet" id="toc-importer-et-créer-lobjet">1.
-  Importer et créer l’objet</a>
-  - <a href="#importer-un-objet-multigraphe"
-    id="toc-importer-un-objet-multigraphe">1.1. Importer un objet
-    multigraphe</a>
-  - <a href="#importer-des-données-au-format-csv-et-igraph"
-    id="toc-importer-des-données-au-format-csv-et-igraph">1.2. Importer des
-    données au format csv et igraph</a>
-  - <a href="#appréhender-les-objets-créés"
-    id="toc-appréhender-les-objets-créés">1.3. Appréhender les objets
-    créés</a>
-  - <a
-    href="#aligner-le-multigraphe-tous-les-sommets-dans-toutes-les-couches"
-    id="toc-aligner-le-multigraphe-tous-les-sommets-dans-toutes-les-couches">1.4.
-    “Aligner” le multigraphe (tous les sommets dans toutes les couches)</a>
-- <a href="#quelques-mesures-et-analyses"
-  id="toc-quelques-mesures-et-analyses">2. Quelques mesures et
-  analyses</a>
-  - <a href="#créer-et-étudier-les-couches-individuellemment"
-    id="toc-créer-et-étudier-les-couches-individuellemment">2.1. Créer et
-    étudier les couches individuellemment</a>
-  - <a href="#centralités-voisinage-distances"
-    id="toc-centralités-voisinage-distances">2.2. Centralités, voisinage,
-    distances</a>
-  - <a href="#comparaison-des-couches" id="toc-comparaison-des-couches">2.3.
-    Comparaison des couches</a>
-  - <a href="#détection-de-communautés"
-    id="toc-détection-de-communautés">2.4. Détection de communautés</a>
-- <a href="#visualisation" id="toc-visualisation">3. Visualisation</a>
-- <a href="#références" id="toc-références">4. Références</a>
+- [**1. Importer et créer l’objet**](#1-importer-et-créer-lobjet)
+  - [1.1. Importer un objet
+    multigraphe](#11-importer-un-objet-multigraphe)
+  - [1.2. Importer des données au format csv et
+    igraph](#12-importer-des-données-au-format-csv-et-igraph)
+  - [1.3. Appréhender les objets
+    créés](#13-appréhender-les-objets-créés)
+  - [1.4. Aligner le multigraphe (tous les sommets dans toutes les
+    couches)](#14-aligner-le-multigraphe-tous-les-sommets-dans-toutes-les-couches)
+- [**2. Quelques mesures et analyses**](#2-quelques-mesures-et-analyses)
+  - [2.1. Créer et étudier les couches
+    individuellemment](#21-créer-et-étudier-les-couches-individuellemment)
+  - [2.2. Centralités, voisinage,
+    distances](#22-centralités-voisinage-distances)
+  - [2.3. Comparaison des couches](#23-comparaison-des-couches)
+  - [2.4. Détection de communautés](#24-détection-de-communautés)
+- [**3. Visualisation**](#3-visualisation)
+- [**4. Références**](#4-références)
 
 *Paul Gourdon et Laurent Beauguitte (UMR Géographie-cités)*
 
@@ -99,7 +87,7 @@ library(multinet)
 
 net <- ml_aucs()
 layers_ml(net)
-#> [1] "facebook" "work"     "lunch"    "coauthor" "leisure"
+#> [1] "facebook" "lunch"    "work"     "leisure"  "coauthor"
 net
 #> ml-net[61, 5, 224, 620 (620,0)]
 ```
@@ -172,7 +160,7 @@ visualisation sont évoquées à la fin de ce tutoriel.
 plot(net, vertex.labels = NA)
 ```
 
-![](output/unnamed-chunk-4-1.png)
+![](output/unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
 
@@ -180,7 +168,7 @@ plot(net, vertex.labels = NA)
 plot(clus, vertex.labels = NA) 
 ```
 
-![](output/unnamed-chunk-4-2.png)
+![](output/unnamed-chunk-4-2.png)<!-- -->
 
 Un moyen sans doute plus sûr est d’utiliser la fonction `summary().`
 
@@ -225,7 +213,7 @@ Les colonnes indiquent :
 
 - le diamètre de la plus grande composante connexe (`dia`).
 
-### 1.4. “Aligner” le multigraphe (tous les sommets dans toutes les couches)
+### 1.4. Aligner le multigraphe (tous les sommets dans toutes les couches)
 
 Comme le montrent les tableaux précédents, tous les acteurs ne sont pas
 présents dans chaque couche.
@@ -284,7 +272,7 @@ l3 <- layout_multiforce_ml(clus_aligned, w_inter = 1,
 plot(clus_aligned, layout = l3, grid = c(1, 3), vertex.labels = "")
 ```
 
-![](output/unnamed-chunk-7-1.png)
+![](output/unnamed-chunk-7-1.png)<!-- -->
 
 Si la fonction `summary` renvoie les mêmes résultats que le paramètre
 `aligned` soit `TRUE` ou `FALSE`, les fonctions de comparaison entre les
@@ -475,9 +463,9 @@ c’est-à-dire non-dominés.
 # calcul des non-dominated path lengths entre deux sommets 
 subset(distance_ml(net,from = "U54",to = "U41", method="multiplex"), 
        lunch == 1 & facebook == 2 | work == 3)
-#>    from  to facebook work lunch coauthor leisure
-#> 3   U54 U41        2    0     1        0       0
-#> 10  U54 U41        0    3     0        0       0
+#>    from  to facebook lunch work leisure coauthor
+#> 1   U54 U41        2     1    0       0        0
+#> 15  U54 U41        0     0    3       0        0
 ```
 
 L’exemple ci-dessus montre 2 chemins non-dominés entre `U54` et `U41` de
@@ -505,12 +493,12 @@ multiplexe (selon la pondération affectée aux liens dans les couches).
 # comprenant uniquement 2 liens dans la couche facebook
 subset(distance_ml(net,from = "U54",to = "U41", method="multiplex"),
        facebook == 2 )
-#>    from  to facebook work lunch coauthor leisure
-#> 3   U54 U41        2    0     1        0       0
-#> 5   U54 U41        2    1     0        1       0
-#> 20  U54 U41        2    0     0        3       0
-#> 24  U54 U41        2    0     0        1       1
-#> 25  U54 U41        2    0     0        0       2
+#>    from  to facebook lunch work leisure coauthor
+#> 1   U54 U41        2     1    0       0        0
+#> 5   U54 U41        2     0    1       0        1
+#> 21  U54 U41        2     0    0       2        0
+#> 23  U54 U41        2     0    0       1        1
+#> 29  U54 U41        2     0    0       0        3
 ```
 
 ### 2.3. Comparaison des couches
@@ -529,12 +517,12 @@ couches sont dissemblables).
 ``` r
 #comparaison distribution degré
 layer_comparison_ml(net, method = "jeffrey.degree")
-#>           facebook      work     lunch  coauthor   leisure
-#> facebook 0.0000000 0.7106788 0.4207678 2.0214010 1.0177980
-#> work     0.7106788 0.0000000 0.8372414 0.5917494 0.2118452
-#> lunch    0.4207678 0.8372414 0.0000000 2.8966530 1.3288250
-#> coauthor 2.0214010 0.5917494 2.8966530 0.0000000 0.4521076
-#> leisure  1.0177980 0.2118452 1.3288250 0.4521076 0.0000000
+#>           facebook     lunch      work   leisure  coauthor
+#> facebook 0.0000000 0.4207678 0.7106788 1.0177980 2.0214010
+#> lunch    0.4207678 0.0000000 0.8372414 1.3288250 2.8966530
+#> work     0.7106788 0.8372414 0.0000000 0.2118452 0.5917494
+#> leisure  1.0177980 1.3288250 0.2118452 0.0000000 0.4521076
+#> coauthor 2.0214010 2.8966530 0.5917494 0.4521076 0.0000000
 ```
 
 Ainsi, dans cet exemple la distribution des degrés dans la couche `work`
@@ -548,12 +536,12 @@ alignée du réseau multiplexe, on ajoute des sommets isolés de degré 0.
 ``` r
 #comparaison distribution degré sur la version alignée du réseau net
 layer_comparison_ml(net_aligned, method = "jeffrey.degree")
-#>           facebook     lunch  coauthor   leisure      work
-#> facebook 0.0000000 1.4143833 0.4799452 0.2754121 0.1817213
-#> lunch    1.4143833 0.0000000 3.4654016 1.6748765 0.3830254
-#> coauthor 0.4799452 3.4654016 0.0000000 0.7262190 1.3307614
-#> leisure  0.2754121 1.6748765 0.7262190 0.0000000 0.2961610
-#> work     0.1817213 0.3830254 1.3307614 0.2961610 0.0000000
+#>               work     lunch  coauthor   leisure  facebook
+#> work     0.0000000 0.3830254 1.3307614 0.2961610 0.1817213
+#> lunch    0.3830254 0.0000000 3.4654016 1.6748765 1.4143833
+#> coauthor 1.3307614 3.4654016 0.0000000 0.7262190 0.4799452
+#> leisure  0.2961610 1.6748765 0.7262190 0.0000000 0.2754121
+#> facebook 0.1817213 1.4143833 0.4799452 0.2754121 0.0000000
 ```
 
 - Corrélation entre les degrés :
@@ -610,12 +598,12 @@ matrice est remplie de 1.*
 ``` r
 #mêmes liens entre mêmes paires de sommets
 layer_comparison_ml(net, method="jaccard.edges")
-#>            facebook       work      lunch   coauthor   leisure
-#> facebook 1.00000000 0.18656716 0.17843866 0.05839416 0.1584699
-#> work     0.18656716 1.00000000 0.33910035 0.09137056 0.2051282
-#> lunch    0.17843866 0.33910035 1.00000000 0.06467662 0.2772727
-#> coauthor 0.05839416 0.09137056 0.06467662 1.00000000 0.1010101
-#> leisure  0.15846995 0.20512821 0.27727273 0.10101010 1.0000000
+#>            facebook      lunch       work   leisure   coauthor
+#> facebook 1.00000000 0.17843866 0.18656716 0.1584699 0.05839416
+#> lunch    0.17843866 1.00000000 0.33910035 0.2772727 0.06467662
+#> work     0.18656716 0.33910035 1.00000000 0.2051282 0.09137056
+#> leisure  0.15846995 0.27727273 0.20512821 1.0000000 0.10101010
+#> coauthor 0.05839416 0.06467662 0.09137056 0.1010101 1.00000000
 ```
 
 Ici les deux couches possédant le plus de liens en commun sont les
@@ -628,12 +616,12 @@ mais sur les triangles (triades).
 ``` r
 #mêmes triangles entre mêmes ensemble de 3 sommets
 layer_comparison_ml(net, method="jaccard.triangles")
-#>             facebook        work       lunch    coauthor    leisure
-#> facebook 1.000000000 0.046448087 0.069053708 0.005813953 0.02369668
-#> work     0.046448087 1.000000000 0.151741294 0.009259259 0.07407407
-#> lunch    0.069053708 0.151741294 1.000000000 0.007968127 0.10861423
-#> coauthor 0.005813953 0.009259259 0.007968127 1.000000000 0.00000000
-#> leisure  0.023696682 0.074074074 0.108614232 0.000000000 1.00000000
+#>             facebook       lunch        work    leisure    coauthor
+#> facebook 1.000000000 0.069053708 0.046448087 0.02369668 0.005813953
+#> lunch    0.069053708 1.000000000 0.151741294 0.10861423 0.007968127
+#> work     0.046448087 0.151741294 1.000000000 0.07407407 0.009259259
+#> leisure  0.023696682 0.108614232 0.074074074 1.00000000 0.000000000
+#> coauthor 0.005813953 0.007968127 0.009259259 0.00000000 1.000000000
 ```
 
 ### 2.4. Détection de communautés
@@ -661,36 +649,36 @@ com4 <- infomap_ml(net)
 
 #crée dataframe : sommet, couche, communauté
 head(com2, 6) 
-#>   actor    layer cid
-#> 1    U4 facebook   0
-#> 2    U4     work   0
-#> 3    U4    lunch   0
-#> 4   U71 facebook   0
-#> 5   U71     work   0
-#> 6   U71    lunch   0
+#>   actor   layer cid
+#> 1   U91   lunch   0
+#> 2   U91    work   0
+#> 3   U91 leisure   0
+#> 4   U65   lunch   0
+#> 5   U65    work   0
+#> 6   U65 leisure   0
 
 #nb communautés et taille selon l'algo choisi
 table(com1$cid)
 #> 
 #>  0  1  2  3  4 
-#> 44 37 60 53 30
+#> 28 44 40 59 53
 #table(com2$cid)
 #table(com3$cid)
 table(com4$cid)
 #> 
-#>  0  1  2  3  4  5 
-#> 44 28 34 53 30 35
+#>  0  1  2  3  4 
+#> 30 28 44 56 66
 
 #indicateurs
 modularity_ml(net, com1, gamma = 1, omega = 1)
-#> [1] 0.5132803
+#> [1] 0.5238051
 #
 
 #comparaison entre deux partitions 1 - 4
 nmi_ml(net, com1, com4)
-#> [1] 0.9171475
+#> [1] 0.9108307
 omega_index_ml(net, com1, com4)
-#> [1] 0.8579611
+#> [1] 0.8933498
 ```
 
 Trois indicateurs peuvent être calculés pour évaluer la qualité des
@@ -707,7 +695,7 @@ Il est possible de visualiser les communautés obtenues.
 plot(net, vertex.labels.cex=.3, com=com4)
 ```
 
-![](output/unnamed-chunk-22-1.png)
+![](output/unnamed-chunk-22-1.png)<!-- -->
 
 On peut choisir de visualiser le réseau “aligné” afin que les sommets
 soient positionnés de la même façon sur toutes les couches. La
@@ -725,7 +713,7 @@ l4 <- layout_multiforce_ml(net_aligned, w_inter = 1,
 plot(net_aligned, vertex.labels.cex=.3, com=com4, layout = l4)
 ```
 
-![](output/unnamed-chunk-23-1.png)
+![](output/unnamed-chunk-23-1.png)<!-- -->
 
 ## 3. Visualisation
 
@@ -750,13 +738,13 @@ taille des liens selon leur poids.
 ``` r
 # créer une couche valuée à partir de work, facebook et lunch
 layers_ml(net)
-#> [1] "facebook" "work"     "lunch"    "coauthor" "leisure"
+#> [1] "facebook" "lunch"    "work"     "leisure"  "coauthor"
 
 flatten_ml(net, new.layer = "wfl", layers = c("work", "facebook", "lunch"),
                    method = "weighted", force.directed = FALSE, all.actors = FALSE)
 
 layers_ml(net)
-#> [1] "facebook" "work"     "lunch"    "coauthor" "leisure"  "wfl"
+#> [1] "facebook" "lunch"    "work"     "leisure"  "coauthor" "wfl"
 
 attributes_ml(net, target = "edge")
 #>   layer   name   type
@@ -784,7 +772,7 @@ plot(net,                        #objet mulinet
      show.layer.names = FALSE)   #afficher le nom de la couche
 ```
 
-![](output/unnamed-chunk-24-1.png)
+![](output/unnamed-chunk-24-1.png)<!-- -->
 
 Dès lors que l’on souhaite visualiser des variables attributaires, les
 solutions proposées sont selon nous complexes et peu pratiques car il

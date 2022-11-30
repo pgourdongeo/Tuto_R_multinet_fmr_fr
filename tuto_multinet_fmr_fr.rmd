@@ -1,7 +1,6 @@
 ---
 title: "Analyse de réseaux multiplexes avec R - le package multinet"
 output: github_document
-output-file: "README.md"
 editor_options: 
 chunk_output_type: console
 ---
