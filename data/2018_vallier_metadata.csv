@@ -1,0 +1,21 @@
+Estelle Vallier, 2018, Voyage en cluster : qu'en est-il de sa promesse relationnelle ?, ARCS, en ligne
+
+2018_vallier_data_nodelist.csv
+TYPE
+1 : Hôpital, Hospital
+2 : Laboratoire public de taille importante (150 à 300 pers.),Large-scale public laboratory (150 to 300 staff)
+3 : Laboratoire public de taille moyenne (50 à 150 pers.) ,Medium-scale public laboratory (50 to 150 staff)
+4 : PME (10 à 60 pers.),SME (10 to 60 staff)
+5 : Laboratoire public de petite taille (- 50 pers.),Small-scale public laboratory
+6 : Laboratoire privé de petite taille (- 50 pers.) ,Small-scale private laboratory
+7 ,Organisme de formation ,Educational institution
+8,TPE (- 10 personnes),VSE (under 10 staff)
+9,Association culture scientifique,Public understanding of science organizations
+
+2018_vallier_data_edgelist.csv
+
+Node1,Origin,
+Node2,Destination,
+Type_fr,Type of relation (French),
+Type_en,Type of relation (English),
+Directed link (Y/N),Is the link directed (yes) or undirected (no) ?,

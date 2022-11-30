@@ -1,0 +1,118 @@
+Node1,Node2,Type_fr,Type_en,Directed link (Y/N)
+5,32,Sous traitance,Sub-contracting,Y
+36,19,Sous traitance,Sub-contracting,Y
+36,33,Sous traitance,Sub-contracting,Y
+4,11,Dépannage,Repair services,Y
+4,36,Dépannage,Repair services,Y
+5,2,Dépannage,Repair services,Y
+6,2,Dépannage,Repair services,Y
+6,22,Dépannage,Repair services,Y
+6,28,Dépannage,Repair services,Y
+6,34,Dépannage,Repair services,Y
+10,4,Dépannage,Repair services,Y
+19,5,Dépannage,Repair services,Y
+19,8,Dépannage,Repair services,Y
+22,6,Dépannage,Repair services,Y
+28,6,Dépannage,Repair services,Y
+28,34,Dépannage,Repair services,Y
+33,28,Dépannage,Repair services,Y
+34,28,Dépannage,Repair services,Y
+37,28,Dépannage,Repair services,Y
+40,28,Dépannage,Repair services,Y
+5,2,Client Fournisseur,Client Provider,N
+19,36,Client Fournisseur,Client Provider,N
+28,5,Client Fournisseur,Client Provider,N
+30,8,Client Fournisseur,Client Provider,N
+34,6,Client Fournisseur,Client Provider,N
+35,9,Client Fournisseur,Client Provider,N
+28,6,Client Fournisseur,Client Provider,N
+38,4,Client Fournisseur,Client Provider,N
+38,5,Client Fournisseur,Client Provider,N
+4,5,Consortium,Consortium,N
+4,28,Consortium,Consortium,N
+5,4,Consortium,Consortium,N
+5,6,Consortium,Consortium,N
+28,4,Consortium,Consortium,N
+6,5,Consortium,Consortium,N
+5,19,Consortium,Consortium,N
+19,5,Consortium,Consortium,N
+5,28,Consortium,Consortium,N
+28,5,Consortium,Consortium,N
+7,28,Consortium,Consortium,N
+28,7,Consortium,Consortium,N
+7,38,Consortium,Consortium,N
+38,7,Consortium,Consortium,N
+8,10,Consortium,Consortium,N
+8,19,Consortium,Consortium,N
+10,8,Consortium,Consortium,N
+19,8,Consortium,Consortium,N
+28,38,Consortium,Consortium,N
+38,28,Consortium,Consortium,N
+4,8,Thèse,PhD Thesis,Y
+4,15,Thèse,PhD Thesis,Y
+6,32,Thèse,PhD Thesis,Y
+8,4,Thèse,PhD Thesis,Y
+15,4,Thèse,PhD Thesis,Y
+32,6,Thèse,PhD Thesis,Y
+1,41,Collaboration,Collaboration,N
+41,1,Collaboration,Collaboration,N
+4,9,Collaboration,Collaboration,N
+9,4,Collaboration,Collaboration,N
+4,10,Collaboration,Collaboration,N
+10,4,Collaboration,Collaboration,N
+4,11,Collaboration,Collaboration,N
+11,4,Collaboration,Collaboration,N
+5,9,Collaboration,Collaboration,N
+9,5,Collaboration,Collaboration,N
+6,7,Collaboration,Collaboration,N
+32,6,Collaboration,Collaboration,N
+7,6,Collaboration,Collaboration,N
+6,10,Collaboration,Collaboration,N
+10,6,Collaboration,Collaboration,N
+6,28,Collaboration,Collaboration,N
+28,6,Collaboration,Collaboration,N
+6,32,Collaboration,Collaboration,N
+6,38,Collaboration,Collaboration,N
+38,6,Collaboration,Collaboration,N
+7,11,Collaboration,Collaboration,N
+11,7,Collaboration,Collaboration,N
+7,13,Collaboration,Collaboration,N
+13,7,Collaboration,Collaboration,N
+7,18,Collaboration,Collaboration,N
+18,7,Collaboration,Collaboration,N
+8,22,Collaboration,Collaboration,N
+22,8,Collaboration,Collaboration,N
+8,39,Collaboration,Collaboration,N
+39,8,Collaboration,Collaboration,N
+9,35,Collaboration,Collaboration,N
+35,9,Collaboration,Collaboration,N
+11,13,Collaboration,Collaboration,N
+13,11,Collaboration,Collaboration,N
+11,35,Collaboration,Collaboration,N
+35,11,Collaboration,Collaboration,N
+11,41,Collaboration,Collaboration,N
+41,11,Collaboration,Collaboration,N
+12,18,Collaboration,Collaboration,N
+18,12,Collaboration,Collaboration,N
+12,35,Collaboration,Collaboration,N
+35,12,Collaboration,Collaboration,N
+12,40,Collaboration,Collaboration,N
+12,41,Collaboration,Collaboration,N
+12,42,Collaboration,Collaboration,N
+40,12,Collaboration,Collaboration,N
+41,12,Collaboration,Collaboration,N
+42,12,Collaboration,Collaboration,N
+13,37,Collaboration,Collaboration,N
+37,13,Collaboration,Collaboration,N
+14,15,Collaboration,Collaboration,N
+15,14,Collaboration,Collaboration,N
+14,41,Collaboration,Collaboration,N
+41,14,Collaboration,Collaboration,N
+15,24,Collaboration,Collaboration,N
+24,15,Collaboration,Collaboration,N
+20,41,Collaboration,Collaboration,N
+41,20,Collaboration,Collaboration,N
+22,41,Collaboration,Collaboration,N
+41,22,Collaboration,Collaboration,N
+27,41,Collaboration,Collaboration,N
+41,27,Collaboration,Collaboration,N
