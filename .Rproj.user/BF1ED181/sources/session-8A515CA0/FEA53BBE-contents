@@ -1,5 +1,6 @@
 ---
 title: "Analyse de réseaux multiplexes avec R - le package multinet"
+date: "`r format(Sys.time(), '%B, %Y')`"
 format:
   gfm:
     output-file: "README.md"
