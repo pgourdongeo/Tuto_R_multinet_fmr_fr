@@ -1,6 +1,6 @@
 Analyse de réseaux multiplexes avec R - le package multinet
 ================
-novembre, 2022
+décembre, 2022
 
 *Paul Gourdon et Laurent Beauguitte (UMR Géographie-cités)*
 
@@ -88,7 +88,7 @@ library(multinet)
 
 net <- ml_aucs()
 layers_ml(net)
-#> [1] "facebook" "lunch"    "work"     "coauthor" "leisure"
+#> [1] "facebook" "coauthor" "lunch"    "leisure"  "work"
 net
 #> ml-net[61, 5, 224, 620 (620,0)]
 ```
@@ -392,8 +392,8 @@ data.frame(actor = names(top_degrees),
 #> U4      U4       12       1    15       NA   21   49
 #> U67    U67       13       2    12       NA   20   47
 #> U91    U91       14      14     7        3    8   46
-#> U123  U123       11      NA     6       NA   27   44
 #> U79    U79       15       7    13       NA    9   44
+#> U123  U123       11      NA     6       NA   27   44
 #> U110  U110        9       7     7        4   14   41
 ```
 
@@ -464,22 +464,23 @@ c’est-à-dire non-dominés.
 # calcul des non-dominated path lengths entre deux sommets 
 subset(distance_ml(net,from = "U54",to = "U41", method="multiplex"), 
        lunch == 1 & facebook == 2 | work == 3)
-#>    from  to facebook lunch work coauthor leisure
-#> 1   U54 U41        2     1    0        0       0
-#> 17  U54 U41        0     0    3        0       0
+#>    from  to facebook coauthor lunch leisure work
+#> 2   U54 U41        2        0     1       0    0
+#> 27  U54 U41        0        0     0       0    3
 ```
 
 L’exemple ci-dessus montre 2 chemins non-dominés entre `U54` et `U41` de
 longueur 3[^1].
 
 - un chemin comprend une distance de 1 dans la couche `lunch` et une
-  distance de 2 dans la couche `facebook` : `U54` a déjeuné avec *i* qui
-  a déjeuné avec `U41`; U54 travaille avec *j* qui travaille avec *k*
-  qui travaille avec `U41`. Cette information signifie qu’il n’y a pas
-  de chemin de longueur 2 avec 2 liens dans la couche `facebook` et 0
-  dans toutes les autres couches : ce chemin, s’il existait, serait
-  nécessairement plus court que `2 facebook + 1 lunch`, et ce, quel que
-  soit le poids attribué aux liens dans la couche `facebook` et `lunch`.
+  distance de 2 dans la couche `facebook`. Autrement dit, théoriquement,
+  cela pourrait renvoyer au chemin suivant : `U54` a déjeuné avec *i* ;
+  *i* est ami facebook avec *j* lui-même ami avec `U41`. D’autre part,
+  l’existence d’un tel chemin signifie qu’il n’y a pas de chemin de
+  longueur 2 avec 2 liens dans la couche `facebook` et 0 dans toutes les
+  autres couches : ce chemin, s’il existait, serait nécessairement plus
+  court que `2 facebook + 1 lunch`, et ce, quel que soit le poids
+  attribué aux liens dans la couche `facebook` et `lunch`.
 
 - l’autre chemin affiche une longueur 3 à l’intérieur de la seule couche
   `work`.
@@ -494,12 +495,12 @@ multiplexe (selon la pondération affectée aux liens dans les couches).
 # comprenant uniquement 2 liens dans la couche facebook
 subset(distance_ml(net,from = "U54",to = "U41", method="multiplex"),
        facebook == 2 )
-#>    from  to facebook lunch work coauthor leisure
-#> 1   U54 U41        2     1    0        0       0
-#> 3   U54 U41        2     0    1        1       0
-#> 20  U54 U41        2     0    0        3       0
-#> 24  U54 U41        2     0    0        1       1
-#> 25  U54 U41        2     0    0        0       2
+#>    from  to facebook coauthor lunch leisure work
+#> 2   U54 U41        2        0     1       0    0
+#> 7   U54 U41        2        1     0       0    1
+#> 11  U54 U41        2        3     0       0    0
+#> 22  U54 U41        2        1     0       1    0
+#> 23  U54 U41        2        0     0       2    0
 ```
 
 ### 2.3. Comparaison des couches
@@ -518,12 +519,12 @@ couches sont dissemblables).
 ``` r
 #comparaison distribution degré
 layer_comparison_ml(net, method = "jeffrey.degree")
-#>           facebook     lunch      work  coauthor   leisure
-#> facebook 0.0000000 0.4207678 0.7106788 2.0214010 1.0177980
-#> lunch    0.4207678 0.0000000 0.8372414 2.8966530 1.3288250
-#> work     0.7106788 0.8372414 0.0000000 0.5917494 0.2118452
-#> coauthor 2.0214010 2.8966530 0.5917494 0.0000000 0.4521076
-#> leisure  1.0177980 1.3288250 0.2118452 0.4521076 0.0000000
+#>           facebook  coauthor     lunch   leisure      work
+#> facebook 0.0000000 2.0214010 0.4207678 1.0177980 0.7106788
+#> coauthor 2.0214010 0.0000000 2.8966530 0.4521076 0.5917494
+#> lunch    0.4207678 2.8966530 0.0000000 1.3288250 0.8372414
+#> leisure  1.0177980 0.4521076 1.3288250 0.0000000 0.2118452
+#> work     0.7106788 0.5917494 0.8372414 0.2118452 0.0000000
 ```
 
 Ainsi, dans cet exemple la distribution des degrés dans la couche `work`
@@ -537,12 +538,12 @@ alignée du réseau multiplexe, on ajoute des sommets isolés de degré 0.
 ``` r
 #comparaison distribution degré sur la version alignée du réseau net
 layer_comparison_ml(net_aligned, method = "jeffrey.degree")
-#>           facebook  coauthor     lunch   leisure      work
-#> facebook 0.0000000 0.4799452 1.4143833 0.2754121 0.1817213
-#> coauthor 0.4799452 0.0000000 3.4654016 0.7262190 1.3307614
-#> lunch    1.4143833 3.4654016 0.0000000 1.6748765 0.3830254
-#> leisure  0.2754121 0.7262190 1.6748765 0.0000000 0.2961610
-#> work     0.1817213 1.3307614 0.3830254 0.2961610 0.0000000
+#>           facebook     lunch   leisure  coauthor      work
+#> facebook 0.0000000 1.4143833 0.2754121 0.4799452 0.1817213
+#> lunch    1.4143833 0.0000000 1.6748765 3.4654016 0.3830254
+#> leisure  0.2754121 1.6748765 0.0000000 0.7262190 0.2961610
+#> coauthor 0.4799452 3.4654016 0.7262190 0.0000000 1.3307614
+#> work     0.1817213 0.3830254 0.2961610 1.3307614 0.0000000
 ```
 
 - Corrélation entre les degrés :
@@ -599,12 +600,12 @@ matrice est remplie de 1.*
 ``` r
 #mêmes liens entre mêmes paires de sommets
 layer_comparison_ml(net, method="jaccard.edges")
-#>            facebook      lunch       work   coauthor   leisure
-#> facebook 1.00000000 0.17843866 0.18656716 0.05839416 0.1584699
-#> lunch    0.17843866 1.00000000 0.33910035 0.06467662 0.2772727
-#> work     0.18656716 0.33910035 1.00000000 0.09137056 0.2051282
-#> coauthor 0.05839416 0.06467662 0.09137056 1.00000000 0.1010101
-#> leisure  0.15846995 0.27727273 0.20512821 0.10101010 1.0000000
+#>            facebook   coauthor      lunch   leisure       work
+#> facebook 1.00000000 0.05839416 0.17843866 0.1584699 0.18656716
+#> coauthor 0.05839416 1.00000000 0.06467662 0.1010101 0.09137056
+#> lunch    0.17843866 0.06467662 1.00000000 0.2772727 0.33910035
+#> leisure  0.15846995 0.10101010 0.27727273 1.0000000 0.20512821
+#> work     0.18656716 0.09137056 0.33910035 0.2051282 1.00000000
 ```
 
 Ici les deux couches possédant le plus de liens en commun sont les
@@ -617,12 +618,12 @@ mais sur les triangles (triades).
 ``` r
 #mêmes triangles entre mêmes ensemble de 3 sommets
 layer_comparison_ml(net, method="jaccard.triangles")
-#>             facebook       lunch        work    coauthor    leisure
-#> facebook 1.000000000 0.069053708 0.046448087 0.005813953 0.02369668
-#> lunch    0.069053708 1.000000000 0.151741294 0.007968127 0.10861423
-#> work     0.046448087 0.151741294 1.000000000 0.009259259 0.07407407
-#> coauthor 0.005813953 0.007968127 0.009259259 1.000000000 0.00000000
-#> leisure  0.023696682 0.108614232 0.074074074 0.000000000 1.00000000
+#>             facebook    coauthor       lunch    leisure        work
+#> facebook 1.000000000 0.005813953 0.069053708 0.02369668 0.046448087
+#> coauthor 0.005813953 1.000000000 0.007968127 0.00000000 0.009259259
+#> lunch    0.069053708 0.007968127 1.000000000 0.10861423 0.151741294
+#> leisure  0.023696682 0.000000000 0.108614232 1.00000000 0.074074074
+#> work     0.046448087 0.009259259 0.151741294 0.07407407 1.000000000
 ```
 
 ### 2.4. Détection de communautés
@@ -651,35 +652,35 @@ com4 <- infomap_ml(net)
 #crée dataframe : sommet, couche, communauté
 head(com2, 6) 
 #>   actor    layer cid
-#> 1  U107 facebook   0
-#> 2  U107    lunch   0
-#> 3  U107     work   0
-#> 4   U29 facebook   0
-#> 5   U29    lunch   0
-#> 6   U29     work   0
+#> 1   U91 coauthor   0
+#> 2   U91    lunch   0
+#> 3   U53 coauthor   0
+#> 4   U53    lunch   0
+#> 5   U72 coauthor   0
+#> 6   U72    lunch   0
 
 #nb communautés et taille selon l'algo choisi
 table(com1$cid)
 #> 
 #>  0  1  2  3  4 
-#> 44 69 53 30 28
+#> 40 44 53 59 28
 #table(com2$cid)
 #table(com3$cid)
 table(com4$cid)
 #> 
 #>  0  1  2  3  4  5 
-#> 44 34 30 28 53 35
+#> 28 53 34 44 30 35
 
 #indicateurs
 modularity_ml(net, com1, gamma = 1, omega = 1)
-#> [1] 0.5179276
+#> [1] 0.5238051
 #
 
 #comparaison entre deux partitions 1 - 4
 nmi_ml(net, com1, com4)
-#> [1] 0.9356737
+#> [1] 0.8883997
 omega_index_ml(net, com1, com4)
-#> [1] 0.8491974
+#> [1] 0.8182008
 ```
 
 Trois indicateurs peuvent être calculés pour évaluer la qualité des
@@ -739,13 +740,13 @@ taille des liens selon leur poids.
 ``` r
 # créer une couche valuée à partir de work, facebook et lunch
 layers_ml(net)
-#> [1] "facebook" "lunch"    "work"     "coauthor" "leisure"
+#> [1] "facebook" "coauthor" "lunch"    "leisure"  "work"
 
 flatten_ml(net, new.layer = "wfl", layers = c("work", "facebook", "lunch"),
                    method = "weighted", force.directed = FALSE, all.actors = FALSE)
 
 layers_ml(net)
-#> [1] "facebook" "lunch"    "work"     "coauthor" "leisure"  "wfl"
+#> [1] "facebook" "coauthor" "lunch"    "leisure"  "work"     "wfl"
 
 attributes_ml(net, target = "edge")
 #>   layer   name   type
