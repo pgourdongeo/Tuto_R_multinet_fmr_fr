@@ -336,7 +336,7 @@ subset(distance_ml(net,from = "U54",to = "U41", method="multiplex"),
 
 ### 2.3. Comparaison des couches
 
-`multinet` permet également de comparer les couches entre elles. Plusieurs méthodes sont proposées et seule une poignée est détaillée ici. On peut distinguer les comparaisons liées à la la distribution des degrés, celles portant sur la présence des mêmes sommets et enfin les corrélations entre matrices (liens, triangles, etc.). Les méthodes proposées sont issues de l'article de Brodka *et al.* (2018).
+`multinet` permet également de comparer les couches entre elles. Plusieurs méthodes sont proposées et seule une poignée est détaillée ici. On peut distinguer les comparaisons liées à la distribution des degrés, celles portant sur la présence des mêmes sommets et enfin les corrélations entre matrices (liens, triangles, etc.). Les méthodes proposées sont issues de l'article de Brodka *et al.* (2018).
 
 Exemple : fonction de dissimilarité de Jeffrey concernant la distribution des degrés (plus le résultat est élevé, plus les deux couches sont dissemblables).
 
